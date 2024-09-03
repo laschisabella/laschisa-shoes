@@ -1,0 +1,140 @@
+<section class="container">
+  <div class="banner">
+    <div class="slides">
+        <div class="slide active" id="slide1">
+          <img src="{{ 'banner-1.jpg' | asset_url }}" width="800" height="400">
+          <div class="text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, possimus laboriosam enim ipsa suscipit quis dolor quae quisquam nam veniam unde nisi ut harum! Aspernatur dolorem quis voluptatem repellat! Quam.</p>
+            <div class="button">Shop Now</div>
+          </div>
+        </div>
+        <div class="slide" id="slide2">
+          <img src="{{ 'banner-2.jpg' | asset_url }}" width="800" height="400">
+          <div class="text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, possimus laboriosam enim ipsa suscipit quis dolor quae quisquam nam veniam unde nisi ut harum! Aspernatur dolorem quis voluptatem repellat! Quam.</p>
+            <div class="button">Shop Now</div>
+          </div>
+        </div>
+        <div class="slide" id="slide3">
+          <img src="{{ 'banner-3.jpg' | asset_url }}" width="800" height="400">
+          <div class="text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, possimus laboriosam enim ipsa suscipit quis dolor quae quisquam nam veniam unde nisi ut harum! Aspernatur dolorem quis voluptatem repellat! Quam.</p>
+            <div class="button">Shop Now</div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .banner {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    max-width: 1300px;
+}
+
+.text {
+  max-width: 400px;
+  padding: 50px;
+}
+
+.button {
+  background-color: rgba(165, 47, 76);
+  width: max-content;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  color:white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover{
+  background-color: rgb(83, 24, 39);
+}
+
+.container {
+  background-color: rgba(165, 47, 76, 0.2);
+  padding-bottom: 40px; 
+}
+
+.slides {
+    position: relative;   
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 8px;
+    background-color: rgba(85, 85, 85, 0.2);
+}
+
+  .slide img {
+    object-fit: cover;
+    border-radius: 8px 0 0 8px;
+  }
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+</style>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+      slides.forEach((slide, i) => {
+          slide.classList.remove('active');
+          if (i === index) {
+              slide.classList.add('active');
+          }
+      });
+  }
+
+  function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+  }
+
+  setInterval(nextSlide, 3000);
+</script>
+
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "banner"
+    }
+  ]
+}
+{% endschema %}
