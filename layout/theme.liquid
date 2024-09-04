@@ -1,22 +1,27 @@
 <html>
   <head>
     {{ content_for_header }}
-
     {{ 'theme.css' | asset_url | stylesheet_tag }}
-
   </head>
-  <body>
-    {% section 'announcement-bar' %}
-    {% section 'header' %}
-
-    <main id="main" role="main">
-      {{ content_for_layout }}
-    </main>
-
-    {% section 'footer' %}
-
-    {% comment %} {{ 'theme.js' | asset_url | script_tag }} {% endcomment %}
-
-
+  <style>
+    body {
+      background-image: url({{  "bg.jpg" | asset_url }});
+      background-size: cover;
+    }
+    .wrapper-main {
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+  </style>
+  <body class="test">
+    <div class="wrapper-main">
+      {% section 'header' %}
+  
+      <main id="main" role="main">
+        {{ content_for_layout }}
+      </main>
+  
+      {% section 'footer' %}
+    </div>
   </body>
 </html>
