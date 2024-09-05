@@ -1,89 +1,69 @@
 <section class="all-collections">
   <h1>FEATURED COLLECTIONS</h1>
-  <div class="collection-container">
-    <div class="all-collections-wrapper">
-      {% for collection in collections %}
+  <div>
+    {% for collection in collections %}
+      <a href="{{ collection.url }}">
         <div class="collection-card">
-          <a href="{{ collection.url }}">
           <img
-            width="300"
-            height="300"
+            width="200"
+            height="200"
             loading="lazy"
             src="{{ collection.featured_image | image_url}}"
           >
-          </a>
-          <h3>{{- collection.title | link_to: collection.url }}</h3>
+          <p>{{ collection.title }}</p>
         </div>
-      {% endfor %}
-    </div>
+      </a>
+    {% endfor %}
   </div>
 </section>
 
 <style>
   .all-collections {
-    background: {{ section.settings.background }}
-    ;
-    color: {{ section.settings.text_color }}
-    ;
-    padding: 10px;
-    margin: 0 auto;
+    color: {{ section.settings.text_color }};
     text-align:center;
+    margin: 50px 0;
   }
 
-  .all-collections-wrapper {
+  .all-collections > div {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    font-weight: bold;
+  }
+
+  .all-collections > div a {
+    text-decoration: none;
+    color: #bdbdbd;
+    transition: all 0.2s ease;
+  }
+  
+  .all-collections > div > a:hover {
+    opacity: 0.5;
   }
 
   .collection-card {
-    padding: 5px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease;
+    max-width: 200px;
+    background-color: #333333;
+    border-radius: 12px;
   }
 
   .collection-card img {
-    width: 300px;
-    height: 400px;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
   }
 
-  .collection-card h3 a {
-    color: black;
-    text-decoration: none;
-    
-  }
-
-  .collection-card:hover {
-    opacity: 0.7;
+  .collection-card p {
+    display: inline-block;
+    max-width: 150px;
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const wrapper = document.querySelector('.all-collections-wrapper');
-    const scrollLeftButton = document.querySelector('.scroll-left');
-    const scrollRightButton = document.querySelector('.scroll-right');
-
-    scrollLeftButton.addEventListener('click', function () {
-      wrapper.scrollBy({
-        left: -300, // Adjust based on your card width
-        behavior: 'smooth',
-      });
-    });
-
-    scrollRightButton.addEventListener('click', function () {
-      wrapper.scrollBy({
-        left: 300, // Adjust based on your card width
-        behavior: 'smooth',
-      });
-    });
-  });
-</script>
 
 {% schema %}
 {
@@ -91,15 +71,9 @@
   "settings": [
     {
       "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "#F4F4F4"
-    },
-    {
-      "type": "color",
       "id": "text_color",
       "label": "Text",
-      "default": "#000000"
+      "default": "#333333"
     }
   ],
   "presets": [

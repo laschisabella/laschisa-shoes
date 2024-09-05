@@ -1,50 +1,38 @@
-<footer class="footer-main">
-  <div class="footer-sec-1">
-    {%- if section.blocks.size == 0 -%}
-      <div>
-        <p>Guides</p>
-        <p>Terms of Sale</p>
-        <p>Terms of Use</p>
-        <p>Privacy Policy</p> 
-      </div>
-    {% else %}
-      {% for block in section.blocks %}
-        <div>
-          <li>
-            <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
-          </li>
-          <li>
-            <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
-          </li>
-          <li>
-            <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
-          </li>
-          <li>
-            <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
-          </li>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
+<footer>
+  <ul>
+    {% for link in linklists['footer'].links -%}
+      <li>{{ link.title | link_to: link.url }}</li>
+    {%- endfor %}
+  </ul>
 </footer>
 
 <style>
-  .footer-main {
-    background: {{ section.settings.background }};
-    color: {{ section.settings.text_color }};
-    padding: 10px;
-
-    }
-  .footer-sec-1 {
-    margin-top: 20px;
+  footer {
+    background-color: {{ section.settings.background-color }};
+    padding: 5px 20px;
+    margin: 10px 0; 
+    border-radius: 12px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+  }
+  
+  footer ul{
+    display: flex;
+    gap: 10px;
+    list-style: none;
   }
 
-  .footer-sec-1 div{
-    display: flex;
-    gap: 20px;
+  footer ul a {
+    color: {{ section.settings.text-color }};
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
   }
+
+  footer ul a:hover {
+    opacity: 0.5;
+  }
+
 </style>
 
 {% schema %}
@@ -53,15 +41,15 @@
   "settings": [
     {
       "type": "color",
-      "id": "background",
+      "id": "background-color",
       "label": "Background",
-      "default": "#000000"
+      "default": "#333333"
     },
     {
       "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#F4F4F4"
+      "id": "text-color",
+      "label": "Menu Color",
+      "default": "#fff"
     }
   ],
   "blocks": [
